@@ -151,14 +151,37 @@
     <button class="back-btn" onclick="App.showScreen('screen-user')">← بازگشت</button>
   </div>
 
-  <div class="history-filter">
-    <select id="history-user-filter" onchange="History.onFilterChange()">
-      <option value="">همه کاربران</option>
-      <!-- Options added by History.buildFilter() -->
-    </select>
+  <!-- Tabs -->
+  <div class="hist-tabs">
+    <button class="hist-tab active" id="tab-device" onclick="History.switchTab('device')">📱 دستگاه</button>
+    <button class="hist-tab"        id="tab-sheets" onclick="History.switchTab('sheets')">📊 Google Sheets</button>
   </div>
 
-  <div class="history-list" id="history-list"></div>
+  <!-- Tab: Device logs -->
+  <div id="tab-panel-device">
+    <div class="history-filter">
+      <select id="history-user-filter" onchange="History.onFilterChange()">
+        <option value="">همه کاربران</option>
+      </select>
+    </div>
+    <div class="history-list" id="history-list"></div>
+  </div>
+
+  <!-- Tab: Google Sheets table -->
+  <div id="tab-panel-sheets" style="display:none;">
+    <div class="sheets-toolbar">
+      <button class="btn btn-primary" style="flex:none;padding:10px 18px;font-size:13px;" onclick="History.loadSheets()">
+        ↻ بارگذاری از Sheets
+      </button>
+      <select id="sheets-user-filter" onchange="History.filterSheets()" style="flex:1;">
+        <option value="">همه کاربران</option>
+        <option value="Afshin">افشین</option>
+        <option value="شیوا">شیوا</option>
+      </select>
+    </div>
+    <div id="sheets-status" class="sheets-status" style="display:none;"></div>
+    <div id="sheets-table-wrap" style="overflow-x:auto;padding:0 16px 40px;"></div>
+  </div>
 </div>
 
 

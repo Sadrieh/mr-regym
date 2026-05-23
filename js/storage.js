@@ -111,6 +111,24 @@ const Storage = (() => {
     });
   }
 
+  // ── FETCH FROM SHEETS ─────────────────────────────────────────────
+
+  /**
+   * Fetch all rows from Google Sheets via Apps Script doGet.
+   * Apps Script redirects to a googleusercontent.com URL, so we must
+   * follow redirects — fetch() does this automatically in browsers.
+   * Returns array of row arrays (first row is headers).
+   */
+  async function fetchFromSheets() {
+    const url = getSheetsUrl();
+    if (!url || !url.startsWith("https://")) {
+      throw new Error("Sheets URL not configured");
+    }
+    const res  = await fetch(url, { redirect: "follow" });
+    const json = await res.json();
+    return json.logs || [];
+  }
+
   // ── PUBLIC API ────────────────────────────────────────────────────
 
   return {
@@ -120,6 +138,7 @@ const Storage = (() => {
     saveSession,
     getLastWeight,
     syncToSheets,
+    fetchFromSheets,
   };
 
 })();
