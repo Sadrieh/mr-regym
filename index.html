@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0a0a0f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>MR.REGYM Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--  SCREEN: USER SELECT                                           -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div id="screen-user" class="screen active">
+  <div class="brand-hero">
+    <div class="big-title">MR.<span>RE</span>GYM</div>
+    <div class="sub">Fitness Tracker</div>
+  </div>
+
+  <!-- Populated by app.js from PROGRAM_CONFIG -->
+  <div class="user-cards" id="user-cards-container"></div>
+
+  <!-- Static utility cards -->
+  <div class="user-cards" style="max-width:380px; margin-top:14px;">
+    <div class="user-card utility" onclick="App.showScreen('screen-history')">
+      <div class="user-avatar" style="background:var(--bg3);font-size:22px;">📊</div>
+      <div class="user-info">
+        <div class="name">تاریخچه</div>
+        <div class="meta">مشاهده رکوردهای قبلی</div>
+      </div>
+      <div class="arrow">‹</div>
+    </div>
+    <div class="user-card utility" onclick="App.showScreen('screen-settings')">
+      <div class="user-avatar" style="background:var(--bg3);font-size:22px;">⚙️</div>
+      <div class="user-info">
+        <div class="name">تنظیمات</div>
+        <div class="meta">اتصال Google Sheets</div>
+      </div>
+      <div class="arrow">‹</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--  SCREEN: DAY SELECT                                            -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div id="screen-day" class="screen">
+  <div class="header">
+    <div class="logo">MR.REGYM</div>
+    <button class="back-btn" onclick="App.showScreen('screen-user')">← بازگشت</button>
+  </div>
+
+  <div class="day-header">
+    <div class="greeting">خوش اومدی،</div>
+    <div class="user-name" id="day-screen-name"></div>
+  </div>
+
+  <div class="section-label">انتخاب روز تمرین</div>
+  <div class="day-cards" id="day-cards-container"></div>
+
+  <div class="corrective-card" onclick="Session.start('corrective')">
+    <div>
+      <div class="ct">تمرینات اصلاحی + هوازی</div>
+      <div class="cs">۲ بار در هفته · شدت متوسط</div>
+    </div>
+    <div style="color:var(--accent-green);font-size:16px;">‹</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--  SCREEN: SESSION                                               -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div id="screen-session" class="screen">
+
+  <!-- Sticky header -->
+  <div class="session-header">
+    <div class="session-meta">
+      <div>
+        <div class="session-title" id="session-title"></div>
+        <div class="session-sub"   id="session-sub"></div>
+        <div class="session-date"  id="session-date"></div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <button class="back-btn" onclick="Session.confirmExit('days')" title="بازگشت به انتخاب روز">← روزها</button>
+        <button class="back-btn" onclick="Session.confirmExit('home')" title="خروج کامل">✕</button>
+      </div>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="prog-fill" style="width:0%"></div>
+    </div>
+    <div class="progress-label" id="prog-label"></div>
+  </div>
+
+  <!-- Scrollable exercise list -->
+  <div class="exercises-scroll" id="exercises-scroll"></div>
+
+  <!-- Fixed bottom nav -->
+  <div class="session-nav">
+    <button class="btn btn-secondary" id="btn-prev"   onclick="Session.nav(-1)">← قبلی</button>
+    <button class="btn btn-primary"   id="btn-next"   onclick="Session.nav(1)">بعدی →</button>
+    <button class="btn btn-finish"    id="btn-finish" onclick="Session.finish()">اتمام ✓</button>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--  SCREEN: DONE                                                  -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div id="screen-done" class="screen">
+  <div class="done-icon">🏆</div>
+  <div class="done-title">عالی بود <span id="done-name"></span>!</div>
+  <p class="done-sub">تمرین امروز با موفقیت ثبت شد.</p>
+
+  <div class="done-stats">
+    <div class="done-stat">
+      <div class="ds-val" id="done-ex-count">0</div>
+      <div class="ds-lbl">حرکت</div>
+    </div>
+    <div class="done-stat">
+      <div class="ds-val" id="done-set-count">0</div>
+      <div class="ds-lbl">ست ثبت‌شده</div>
+    </div>
+  </div>
+
+  <div class="save-status" id="save-status">
+    <span id="save-icon">⏳</span>
+    <span id="save-msg">در حال ذخیره...</span>
+  </div>
+
+  <button class="btn btn-primary"
+          onclick="App.showScreen('screen-user')"
+          style="width:100%;max-width:320px;">
+    بازگشت به خانه
+  </button>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--  SCREEN: HISTORY                                               -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div id="screen-history" class="screen">
+  <div class="header">
+    <div class="logo">تاریخچه</div>
+    <button class="back-btn" onclick="App.showScreen('screen-user')">← بازگشت</button>
+  </div>
+
+  <div class="history-filter">
+    <select id="history-user-filter" onchange="History.onFilterChange()">
+      <option value="">همه کاربران</option>
+      <!-- Options added by History.buildFilter() -->
+    </select>
+  </div>
+
+  <div class="history-list" id="history-list"></div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--  SCREEN: SETTINGS                                              -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div id="screen-settings" class="screen">
+  <div class="header">
+    <div class="logo">تنظیمات</div>
+    <button class="back-btn" onclick="App.showScreen('screen-user')">← بازگشت</button>
+  </div>
+
+  <div class="settings-section">
+    <h3>Google Sheets — Web App URL</h3>
+    <div class="setting-desc">
+      <strong>راهنمای اتصال:</strong><br>
+      ۱. یک Google Sheet جدید بسازید<br>
+      ۲. Extensions → Apps Script را باز کنید<br>
+      ۳. کد زیر را paste کنید (دکمه کپی پایین)<br>
+      ۴. Deploy → New deployment → Web app<br>
+      ۵. Execute as: Me &nbsp;·&nbsp; Access: Anyone<br>
+      ۶. URL دریافتی را در کادر زیر paste کنید
+    </div>
+    <input type="url"
+           class="setting-input"
+           id="sheets-url"
+           placeholder="https://script.google.com/macros/s/…/exec">
+    <button class="btn btn-primary" style="width:100%;margin-top:4px;" onclick="Settings.save()">
+      ذخیره URL
+    </button>
+  </div>
+
+  <div class="settings-section">
+    <h3>Apps Script Code</h3>
+    <pre class="code-block" id="apps-script-code"></pre>
+    <button class="btn btn-ghost" style="width:100%;" onclick="Settings.copyCode()">
+      📋 کپی کد
+    </button>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--  REST TIMER OVERLAY                                            -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="rest-timer" id="rest-timer">
+  <div class="timer-label">استراحت بین ستها</div>
+  <div class="timer-ring">
+    <svg class="timer-svg" viewBox="0 0 160 160">
+      <circle class="timer-track"    cx="80" cy="80" r="68"/>
+      <circle class="timer-progress" cx="80" cy="80" r="68" id="timer-circle"/>
+    </svg>
+    <div class="timer-count" id="timer-count">120</div>
+  </div>
+  <button class="timer-skip" onclick="Session.skipTimer()">رد کردن ›</button>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--  SCRIPTS  (order matters)                                      -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<script src="data/program.js"></script>   <!-- PROGRAM_CONFIG -->
+<script src="js/storage.js"></script>     <!-- Storage -->
+<script src="js/app.js"></script>         <!-- App (router) -->
+<script src="js/session.js"></script>     <!-- DaySelect, Session -->
+<script src="js/history.js"></script>     <!-- History, Settings -->
+
+<script>
+  // All scripts are loaded synchronously above, so all modules exist now.
+  // No DOMContentLoaded needed — scripts are at bottom of <body>.
+  App.init();
+  History.buildFilter();
+</script>
+
+</body>
+</html>
