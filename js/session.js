@@ -110,50 +110,127 @@ const Session = (() => {
       block.className = "ex-block" + (i === 0 ? " active-ex open" : "");
       block.id = `ex-block-${i}`;
 
-      // Build set rows
       const totalSets = ex.sets || 3;
+      const isSuperset = !!ex.superset;
+
+      // For supersets, split the combined name/reps into two parts
+      // Names are joined with " + " and reps like "12-15 + 10-12"
+      const repsParts = isSuperset
+        ? ex.reps.split("+").map(r => r.trim())
+        : [ex.reps];
+      const nameParts = isSuperset
+        ? ex.nameEn.split("+").map(n => n.trim())
+        : [ex.nameEn];
+      const reps1 = repsParts[0] || ex.reps;
+      const reps2 = repsParts[1] || repsParts[0];
+      const nameEn1 = nameParts[0] || ex.nameEn;
+      const nameEn2 = nameParts[1] || nameParts[0];
+
+      // Build set rows
       let setsHtml = `<div class="sets-label">ثبت وزنه و تکرار</div>`;
 
       for (let s = 0; s < totalSets; s++) {
-        const lastW       = Storage.getLastWeight(userId, ex.nameEn, s);
-        const defaultReps = parseRepsDefault(ex.reps);
-        const wClass = lastW        !== "" ? "set-input prefilled" : "set-input";
-        const rClass = defaultReps  !== "" ? "set-input prefilled" : "set-input";
+        if (isSuperset) {
+          // ── Superset set row: two exercises side by side ─────────
+          const lastW1      = Storage.getLastWeight(userId, nameEn1, s);
+          const lastW2      = Storage.getLastWeight(userId, nameEn2, s);
+          const defReps1    = parseRepsDefault(reps1);
+          const defReps2    = parseRepsDefault(reps2);
 
-        setsHtml += `
-          <div class="set-row">
-            <div class="set-num">${s + 1}</div>
-            <div class="set-input-wrap">
-              <span class="set-input-label">وزنه kg</span>
-              <input type="number"
-                class="${wClass}"
-                id="w-${i}-${s}"
-                value="${lastW}"
-                inputmode="decimal" min="0" step="0.5"
-                oninput="Session.onInput(this)">
-            </div>
-            <div class="set-input-wrap">
-              <span class="set-input-label">تکرار</span>
-              <input type="number"
-                class="${rClass}"
-                id="r-${i}-${s}"
-                value="${defaultReps}"
-                inputmode="numeric" min="0"
-                oninput="Session.onInput(this)">
-            </div>
-          </div>`;
-
-        if (ex.superset && s < totalSets - 1) {
           setsHtml += `
-            <div class="superset-divider">
-              <div class="sd-line"></div>
-              <div class="sd-text">سوپرست</div>
-              <div class="sd-line"></div>
+            <div class="set-row superset-set-row">
+              <div class="set-num">${s + 1}</div>
+              <div class="superset-pair">
+                <div class="superset-exercise-col">
+                  <div class="superset-ex-label">A</div>
+                  <div class="set-input-wrap">
+                    <span class="set-input-label">وزنه kg</span>
+                    <input type="number"
+                      class="${lastW1 !== "" ? "set-input prefilled" : "set-input"}"
+                      id="w-${i}-${s}-a"
+                      value="${lastW1}"
+                      inputmode="decimal" min="0" step="0.5"
+                      oninput="Session.onInput(this)">
+                  </div>
+                  <div class="set-input-wrap">
+                    <span class="set-input-label">تکرار</span>
+                    <input type="number"
+                      class="${defReps1 !== "" ? "set-input prefilled" : "set-input"}"
+                      id="r-${i}-${s}-a"
+                      value="${defReps1}"
+                      inputmode="numeric" min="0"
+                      oninput="Session.onInput(this)">
+                  </div>
+                </div>
+                <div class="superset-vs">↔</div>
+                <div class="superset-exercise-col">
+                  <div class="superset-ex-label">B</div>
+                  <div class="set-input-wrap">
+                    <span class="set-input-label">وزنه kg</span>
+                    <input type="number"
+                      class="${lastW2 !== "" ? "set-input prefilled" : "set-input"}"
+                      id="w-${i}-${s}-b"
+                      value="${lastW2}"
+                      inputmode="decimal" min="0" step="0.5"
+                      oninput="Session.onInput(this)">
+                  </div>
+                  <div class="set-input-wrap">
+                    <span class="set-input-label">تکرار</span>
+                    <input type="number"
+                      class="${defReps2 !== "" ? "set-input prefilled" : "set-input"}"
+                      id="r-${i}-${s}-b"
+                      value="${defReps2}"
+                      inputmode="numeric" min="0"
+                      oninput="Session.onInput(this)">
+                  </div>
+                </div>
+              </div>
+            </div>`;
+        } else {
+          // ── Normal set row ────────────────────────────────────────
+          const lastW       = Storage.getLastWeight(userId, ex.nameEn, s);
+          const defaultReps = parseRepsDefault(ex.reps);
+
+          setsHtml += `
+            <div class="set-row">
+              <div class="set-num">${s + 1}</div>
+              <div class="set-input-wrap">
+                <span class="set-input-label">وزنه kg</span>
+                <input type="number"
+                  class="${lastW !== "" ? "set-input prefilled" : "set-input"}"
+                  id="w-${i}-${s}"
+                  value="${lastW}"
+                  inputmode="decimal" min="0" step="0.5"
+                  oninput="Session.onInput(this)">
+              </div>
+              <div class="set-input-wrap">
+                <span class="set-input-label">تکرار</span>
+                <input type="number"
+                  class="${defaultReps !== "" ? "set-input prefilled" : "set-input"}"
+                  id="r-${i}-${s}"
+                  value="${defaultReps}"
+                  inputmode="numeric" min="0"
+                  oninput="Session.onInput(this)">
+              </div>
             </div>`;
         }
       }
 
-      // Video link
+      // Header: for supersets show both exercise names
+      const nameFaParts = isSuperset ? ex.nameFa.split("+").map(n => n.trim()) : null;
+      const titleFaHtml = isSuperset
+        ? `<div class="ex-title-fa superset-title">
+             <span class="ss-label-a">A</span> ${nameFaParts[0] || ""}
+             <span class="ss-sep">+</span>
+             <span class="ss-label-b">B</span> ${nameFaParts[1] || ""}
+           </div>`
+        : `<div class="ex-title-fa">${ex.nameFa}</div>`;
+
+      const titleEnHtml = isSuperset
+        ? `<div class="ex-title-en">${nameEn1} <span style="opacity:.5">+</span> ${nameEn2}</div>`
+        : `<div class="ex-title-en">${ex.nameEn}</div>`;
+
+      // Video link (searches for the combined name for supersets)
       const ytUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(ex.videoSearch || ex.nameEn)}`;
 
       block.innerHTML = `
@@ -161,9 +238,10 @@ const Session = (() => {
           <div class="ex-header-left">
             <div class="ex-index">
               <span id="ex-badge-${i}" class="ex-badge">حرکت ${i + 1}</span>
+              ${isSuperset ? `<span class="ex-badge-ss">سوپرست</span>` : ""}
             </div>
-            <div class="ex-title-fa">${ex.nameFa}</div>
-            <div class="ex-title-en">${ex.nameEn}</div>
+            ${titleFaHtml}
+            ${titleEnHtml}
             <div class="ex-chips">
               <span class="chip chip-sets">📦 ${ex.sets} ست</span>
               <span class="chip chip-reps">🔄 ${ex.reps}</span>
@@ -174,6 +252,11 @@ const Session = (() => {
           <div class="ex-toggle-icon" id="tog-${i}">›</div>
         </div>
         <div class="ex-body">
+          ${isSuperset ? `
+            <div class="superset-names-bar">
+              <div class="ssn-col"><span class="ssn-badge a">A</span> ${nameFaParts ? nameFaParts[0] : nameEn1}</div>
+              <div class="ssn-col"><span class="ssn-badge b">B</span> ${nameFaParts ? nameFaParts[1] : nameEn2}</div>
+            </div>` : ""}
           ${ex.note ? `<div class="ex-note">📌 ${ex.note}</div>` : ""}
           <a class="video-link" href="${ytUrl}" target="_blank" rel="noopener">
             <span class="video-icon">▶</span>
@@ -283,17 +366,31 @@ const Session = (() => {
   function collectLogs() {
     const logs = [];
     exercises.forEach((ex, i) => {
+      const isSuperset = !!ex.superset;
+      const repsParts = isSuperset ? ex.reps.split("+").map(r => r.trim()) : [ex.reps];
+      const nameParts = isSuperset ? ex.nameEn.split("+").map(n => n.trim()) : [ex.nameEn];
+      const nameFaParts = isSuperset ? ex.nameFa.split("+").map(n => n.trim()) : [ex.nameFa];
+
       for (let s = 0; s < (ex.sets || 3); s++) {
-        const w = document.getElementById(`w-${i}-${s}`)?.value ?? "";
-        const r = document.getElementById(`r-${i}-${s}`)?.value ?? "";
-        if (w !== "" || r !== "") {
-          logs.push({
-            nameFa: ex.nameFa,
-            nameEn: ex.nameEn,
-            setNum: s,
-            weight: w,
-            reps:   r,
-          });
+        if (isSuperset) {
+          // Log exercise A
+          const wA = document.getElementById(`w-${i}-${s}-a`)?.value ?? "";
+          const rA = document.getElementById(`r-${i}-${s}-a`)?.value ?? "";
+          if (wA !== "" || rA !== "") {
+            logs.push({ nameFa: nameFaParts[0], nameEn: nameParts[0], setNum: s, weight: wA, reps: rA });
+          }
+          // Log exercise B
+          const wB = document.getElementById(`w-${i}-${s}-b`)?.value ?? "";
+          const rB = document.getElementById(`r-${i}-${s}-b`)?.value ?? "";
+          if (wB !== "" || rB !== "") {
+            logs.push({ nameFa: nameFaParts[1], nameEn: nameParts[1], setNum: s, weight: wB, reps: rB });
+          }
+        } else {
+          const w = document.getElementById(`w-${i}-${s}`)?.value ?? "";
+          const r = document.getElementById(`r-${i}-${s}`)?.value ?? "";
+          if (w !== "" || r !== "") {
+            logs.push({ nameFa: ex.nameFa, nameEn: ex.nameEn, setNum: s, weight: w, reps: r });
+          }
         }
       }
     });
@@ -363,10 +460,19 @@ const Session = (() => {
 
   function _hasAnyLog() {
     return exercises.some((ex, i) => {
+      const isSuperset = !!ex.superset;
       for (let s = 0; s < (ex.sets || 3); s++) {
-        const w = document.getElementById(`w-${i}-${s}`)?.value ?? "";
-        const r = document.getElementById(`r-${i}-${s}`)?.value ?? "";
-        if (w !== "" || r !== "") return true;
+        if (isSuperset) {
+          const wA = document.getElementById(`w-${i}-${s}-a`)?.value ?? "";
+          const rA = document.getElementById(`r-${i}-${s}-a`)?.value ?? "";
+          const wB = document.getElementById(`w-${i}-${s}-b`)?.value ?? "";
+          const rB = document.getElementById(`r-${i}-${s}-b`)?.value ?? "";
+          if (wA !== "" || rA !== "" || wB !== "" || rB !== "") return true;
+        } else {
+          const w = document.getElementById(`w-${i}-${s}`)?.value ?? "";
+          const r = document.getElementById(`r-${i}-${s}`)?.value ?? "";
+          if (w !== "" || r !== "") return true;
+        }
       }
       return false;
     });
