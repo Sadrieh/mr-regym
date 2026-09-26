@@ -1,488 +1,553 @@
 /**
- * MR.REGYM — Program Configuration
- * ─────────────────────────────────────────────────────────────────
- * This is the ONLY file you need to edit when the program changes.
+ * program.js — PROGRAM CONFIG
+ * ⭐ This is the ONLY file you need to edit when the program changes.
  *
- * EXERCISE FIELDS:
- *   nameFa      {string}  Persian exercise name (displayed in app)
- *   nameEn      {string}  English exercise name (saved in logs)
- *   sets        {number}  Number of sets
- *   reps        {string}  Rep scheme e.g. "8-10", "12-15", "max", "15+10+10"
- *   system      {string}  Training system: "خطی" | "هرمی" | "سوپرست" | "رست پاز" | "مایورپس" | ""
- *   rest        {number}  Rest in seconds between sets (0 = no timer)
- *   superset    {boolean} true if this is a superset (two moves in one block)
- *   note        {string}  Optional coach note shown in app
- *   videoSearch {string}  YouTube search query for exercise tutorial
- *
- * USERS:
- *   Add a new key under USERS to add a new person.
- *   Each user has: name, avatar (single char), avatarColor (CSS gradient),
- *   info (age/weight string), days[], corrective[], cardio[]
+ * system values: "خطی" | "هرمی" | "سوپرست" | "رست پاز" | "مایورپس" | "پارشال رپس" | "دراپ ست"
+ * reps examples: "8-10" | "12" | "max" | "15+10+10" | "30-60s"
  */
 
 const PROGRAM_CONFIG = {
 
-  // ── AFSHIN ────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────────────
+  //  AFSHIN
+  // ─────────────────────────────────────────────────────────────────
   afshin: {
-    name: "افشین",
-    nameEn: "Afshin",
-    avatar: "ا",
-    avatarColor: "linear-gradient(135deg, #e8501a, #f07030)",
-    info: "۳۸ ساله · ۱۰۳ کیلوگرم",
+    name:        "افشین",
+    nameEn:      "Afshin",
+    avatar:      "💪",
+    avatarColor: "#6c63ff",
+    info:        "۳ روز در هفته",
 
     days: [
+      // ── DAY 1: کمر و سرشانه ────────────────────────────────────
       {
-        titleFa: "روز اول — سینه و پشت بازو",
-        titleEn: "Day 1 — Chest & Triceps",
+        titleFa: "روز اول — کمر و سرشانه",
+        titleEn: "Day 1 — Back & Shoulders",
         exercises: [
           {
-            nameFa: "پرس سینه دمبل",
-            nameEn: "Dumbbell Chest Press",
-            sets: 4, reps: "8-10", system: "خطی", rest: 120,
-            videoSearch: "dumbbell chest press technique"
+            nameFa:      "فیس پول سیمکش (نشست)",
+            nameEn:      "Face Pull Cable (Seated)",
+            sets:        4,
+            reps:        "8-10-12-15",
+            system:      "هرمی",
+            rest:        105,
+            videoSearch: "face pull cable exercise",
           },
           {
-            nameFa: "پرس بالا سینه دستگاه تک دست",
-            nameEn: "Single-Arm Incline Chest Press Machine",
-            sets: 3, reps: "12-15", system: "خطی", rest: 120,
-            videoSearch: "incline chest press machine one arm"
+            nameFa:      "پرس سرشانه دمبل (نشسته)",
+            nameEn:      "Dumbbell Shoulder Press (Seated)",
+            sets:        4,
+            reps:        "8-8-10-12",
+            system:      "هرمی",
+            rest:        105,
+            videoSearch: "dumbbell shoulder press seated",
           },
           {
-            nameFa: "پرس زیر سینه سیمکش",
-            nameEn: "Decline Cable Chest Press",
-            sets: 3, reps: "10", system: "خطی", rest: 120,
-            videoSearch: "decline cable chest press"
+            nameFa:      "لت پول داون سیمکش (گیرش سوپینیشن)",
+            nameEn:      "Lat Pulldown Cable (Supination Grip)",
+            sets:        4,
+            reps:        "8-8-10-12",
+            system:      "هرمی",
+            rest:        135,
+            note:        "گیرش سوپینیشن",
+            videoSearch: "lat pulldown supination grip cable",
           },
           {
-            nameFa: "پشت بازو خوابیده هالتر EZ",
-            nameEn: "EZ Bar Skull Crusher",
-            sets: 4, reps: "10", system: "خطی", rest: 120,
-            videoSearch: "EZ bar skull crusher lying tricep extension"
+            nameFa:      "نشر جانب سیمکش تک دست (انواع حالت)",
+            nameEn:      "Cable Lateral Raise Single Arm",
+            sets:        3,
+            reps:        "6-12",
+            system:      "خطی",
+            rest:        150,
+            note:        "حالت اول — انواع دست",
+            videoSearch: "cable lateral raise single arm",
           },
           {
-            nameFa: "پشت بازو سیمکش دسته طنابی",
-            nameEn: "Cable Tricep Rope Pushdown",
-            sets: 1, reps: "15+10+10", system: "رست پاز", rest: 20,
-            note: "استراحت درونی ستی ۲۰ ثانیه",
-            videoSearch: "cable tricep rope pushdown rest pause technique"
+            nameFa:      "زیربغل H-بار دستگاه (گیرش پرونیشن)",
+            nameEn:      "T-Bar Row Machine (Pronation Grip)",
+            sets:        3,
+            reps:        "6-12",
+            system:      "خطی",
+            rest:        150,
+            note:        "گیرش پرونیشن",
+            videoSearch: "T bar row machine pronation grip",
           },
           {
-            nameFa: "نشر خم سیمکش آرنج خم",
-            nameEn: "Bent-Over Cable Lateral Raise (Bent Elbow)",
-            sets: 4, reps: "12", system: "خطی", rest: 120,
-            videoSearch: "bent over cable lateral raise bent elbow rear delt"
+            nameFa:      "زیربغل دمبل با حمایت سینه (پرونیشن)",
+            nameEn:      "Chest-Supported Dumbbell Row (Pronation)",
+            sets:        3,
+            reps:        "8-10-12",
+            system:      "هرمی",
+            rest:        135,
+            note:        "گیرش پرونیشن",
+            videoSearch: "chest supported dumbbell row pronation",
           },
           {
-            nameFa: "فیله میز فیله",
-            nameEn: "Back Extension / Hyperextension",
-            sets: 3, reps: "15", system: "خطی", rest: 120,
-            videoSearch: "back extension hyperextension machine lower back"
+            nameFa:      "زیربغل سیمکش W",
+            nameEn:      "Cable W-Row",
+            sets:        3,
+            reps:        "8-10-12",
+            system:      "هرمی",
+            rest:        105,
+            videoSearch: "cable W row back exercise",
           },
           {
-            nameFa: "کرانچ پهلو سیمکش نشسته",
-            nameEn: "Seated Cable Oblique Crunch",
-            sets: 3, reps: "15", system: "خطی", rest: 120,
-            videoSearch: "seated cable oblique crunch"
+            nameFa:      "فلای معکوس سیمکش (تک دست ایستاده)",
+            nameEn:      "Reverse Cable Fly (Single Arm Standing)",
+            sets:        3,
+            reps:        "6-12",
+            system:      "خطی",
+            rest:        150,
+            note:        "تک دست ایستاده",
+            videoSearch: "reverse cable fly single arm standing",
           },
-          {
-            nameFa: "فلاتر کیکس",
-            nameEn: "Flutter Kicks",
-            sets: 3, reps: "max", system: "خطی", rest: 120,
-            videoSearch: "flutter kicks ab exercise"
-          }
-        ]
+        ],
       },
 
+      // ── DAY 2: پا و شکم ─────────────────────────────────────────
       {
-        titleFa: "روز دوم — سرشانه و پا",
-        titleEn: "Day 2 — Shoulders & Legs",
+        titleFa: "روز دوم — پا و شکم",
+        titleEn: "Day 2 — Legs & Core",
         exercises: [
           {
-            nameFa: "پرس سرشانه دمبل نشسته",
-            nameEn: "Seated Dumbbell Shoulder Press",
-            sets: 4, reps: "12", system: "خطی", rest: 120,
-            note: "سبک بزن",
-            videoSearch: "seated dumbbell shoulder press technique"
+            nameFa:      "اسکوات وال سیت",
+            nameEn:      "Wall Sit Squat",
+            sets:        3,
+            reps:        "30-60s",
+            system:      "خطی",
+            rest:        105,
+            videoSearch: "wall sit squat exercise",
           },
           {
-            nameFa: "نشر جانب دمبل ایستاده",
-            nameEn: "Standing Dumbbell Lateral Raise",
-            sets: 3, reps: "12", system: "خطی", rest: 120,
-            videoSearch: "standing dumbbell lateral raise shoulder"
+            nameFa:      "پرس پا سیمکش ایستاده",
+            nameEn:      "Standing Cable Leg Press",
+            sets:        4,
+            reps:        "8-8-10-12",
+            system:      "هرمی",
+            rest:        120,
+            videoSearch: "standing cable leg press",
           },
           {
-            nameFa: "هک اسکوات دستگاه",
-            nameEn: "Hack Squat Machine",
-            sets: 4, reps: "8-10", system: "خطی", rest: 120,
-            videoSearch: "hack squat machine technique legs"
+            nameFa:      "پشت ران دستگاه نشسته",
+            nameEn:      "Seated Leg Curl Machine",
+            sets:        4,
+            reps:        "8-8-10-12",
+            system:      "هرمی",
+            rest:        120,
+            note:        "نیمه ابتدایی حرکت جفت پا، نیمه دوم تک پا",
+            videoSearch: "seated leg curl machine",
           },
           {
-            nameFa: "ددلیفت رومانیایی هالتر + پشت ران دستگاه نشسته",
-            nameEn: "Romanian Deadlift Barbell + Seated Leg Curl Machine",
-            sets: 4, reps: "12-15 + 10-12", system: "خطی", rest: 120,
-            superset: true,
-            videoSearch: "romanian deadlift barbell stiff leg technique"
+            nameFa:      "جلو ران ماشین",
+            nameEn:      "Leg Extension Machine",
+            sets:        4,
+            reps:        "8-8-10-12",
+            system:      "هرمی",
+            rest:        105,
+            note:        "در انتهای هر ست تا رسیدن به ناتوانی انقباض ایزومتریک نگه دار",
+            videoSearch: "leg extension machine isometric hold",
           },
           {
-            nameFa: "لانجز اسمیت",
-            nameEn: "Smith Machine Lunges",
-            sets: 3, reps: "10-12", system: "خطی", rest: 120,
-            videoSearch: "smith machine lunges technique"
+            nameFa:      "پل باسن تک پا",
+            nameEn:      "Single Leg Glute Bridge",
+            sets:        3,
+            reps:        "12-15",
+            system:      "خطی",
+            rest:        105,
+            note:        "هر پا جداگانه",
+            videoSearch: "single leg glute bridge",
           },
           {
-            nameFa: "ساید لانجز",
-            nameEn: "Side / Lateral Lunges",
-            sets: 3, reps: "10", system: "خطی", rest: 120,
-            videoSearch: "side lateral lunges technique"
+            nameFa:      "جلو ران ماشین (ست دوم)",
+            nameEn:      "Leg Extension Machine (2nd)",
+            sets:        4,
+            reps:        "8-10-12-15",
+            system:      "هرمی",
+            rest:        105,
+            videoSearch: "leg extension machine exercise",
           },
           {
-            nameFa: "جلو ران دستگاه",
-            nameEn: "Leg Extension Machine",
-            sets: 3, reps: "10-12-15", system: "هرمی", rest: 120,
-            videoSearch: "leg extension machine quad technique"
+            nameFa:      "کراس کرانچ",
+            nameEn:      "Cross Crunch",
+            sets:        3,
+            reps:        "15-20",
+            system:      "خطی",
+            rest:        105,
+            videoSearch: "cross crunch ab exercise",
           },
           {
-            nameFa: "ساق نشسته دستگاه",
-            nameEn: "Seated Calf Raise Machine",
-            sets: 3, reps: "15", system: "خطی", rest: 120,
-            videoSearch: "seated calf raise machine technique"
+            nameFa:      "پلانک",
+            nameEn:      "Plank",
+            sets:        3,
+            reps:        "30-60s",
+            system:      "خطی",
+            rest:        105,
+            videoSearch: "plank exercise core",
           },
-          {
-            nameFa: "ساعد دمبل سه جهت",
-            nameEn: "Dumbbell Forearm Curl Three Directions",
-            sets: 3, reps: "15", system: "خطی", rest: 120,
-            videoSearch: "dumbbell wrist curl forearm three directions"
-          }
-        ]
+        ],
       },
 
+      // ── DAY 3: سینه و بازو ──────────────────────────────────────
       {
-        titleFa: "روز سوم — زیربغل و جلو بازو",
-        titleEn: "Day 3 — Back & Biceps",
+        titleFa: "روز سوم — سینه و بازو",
+        titleEn: "Day 3 — Chest & Arms",
         exercises: [
           {
-            nameFa: "لت پول داون دستگاه مچ سوپینیشن",
-            nameEn: "Lat Pulldown Machine (Supination Grip)",
-            sets: 4, reps: "10-12", system: "خطی", rest: 120,
-            videoSearch: "lat pulldown supination underhand grip machine"
+            nameFa:      "پرس سینه دمبل",
+            nameEn:      "Dumbbell Bench Press",
+            sets:        3,
+            reps:        "8-10-12",
+            system:      "هرمی",
+            rest:        105,
+            videoSearch: "dumbbell bench press chest",
           },
           {
-            nameFa: "زیربغل رویینگ دستگاه دست باز پرونیشن",
-            nameEn: "Seated Cable Row Wide Grip Pronation",
-            sets: 4, reps: "12-15", system: "خطی", rest: 120,
-            videoSearch: "seated cable row wide grip pronation back"
+            nameFa:      "فلای بالا سینه سیمکش ایستاده",
+            nameEn:      "High Cable Chest Fly (Standing)",
+            sets:        3,
+            reps:        "8-10-12",
+            system:      "پارشال رپس",
+            rest:        105,
+            note:        "در انتهای هر ست تا رسیدن به ناتوانی تکرار نیمه بزن",
+            videoSearch: "high cable chest fly standing partial reps",
           },
           {
-            nameFa: "زیربغل H بار دستگاه گیرش خنثی",
-            nameEn: "T-Bar Row Neutral Grip",
-            sets: 3, reps: "10-12-15", system: "هرمی", rest: 120,
-            videoSearch: "t-bar row neutral grip back technique"
+            nameFa:      "پرس بالا سینه دمبل",
+            nameEn:      "Incline Dumbbell Press",
+            sets:        3,
+            reps:        "8-12",
+            system:      "خطی",
+            rest:        105,
+            videoSearch: "incline dumbbell press upper chest",
           },
           {
-            nameFa: "جلو بازو دمبل اسپایدری پرونیشن",
-            nameEn: "Dumbbell Spider Curl (Pronation Grip)",
-            sets: 3, reps: "12-15", system: "خطی", rest: 120,
-            videoSearch: "dumbbell spider curl pronation bicep"
+            nameFa:      "جلو بازو دمبل ایستاده (گیرش پرونیشن)",
+            nameEn:      "Standing Dumbbell Bicep Curl (Pronation)",
+            sets:        3,
+            reps:        "8-12",
+            system:      "خطی",
+            rest:        105,
+            note:        "گیرش پرونیشن",
+            videoSearch: "standing dumbbell bicep curl pronation grip",
           },
           {
-            nameFa: "جلو بازو سیمکش ایستاده",
-            nameEn: "Standing Cable Bicep Curl (Myo-Reps)",
-            sets: 1, reps: "20+5+5+4+3", system: "مایورپس", rest: 0,
-            note: "استراحت درون ستی ۵ الی ۱۵ ثانیه یا ۳-۵ نفس عمیق",
-            videoSearch: "standing cable bicep curl myo reps technique"
+            nameFa:      "زیر سینه سیمکش",
+            nameEn:      "Low Cable Chest Fly",
+            sets:        3,
+            reps:        "8-12",
+            system:      "خطی",
+            rest:        105,
+            videoSearch: "low cable chest fly lower chest",
           },
           {
-            nameFa: "شراگز اسمیت",
-            nameEn: "Smith Machine Shrugs",
-            sets: 3, reps: "15", system: "خطی", rest: 120,
-            videoSearch: "smith machine shrugs trapezius technique"
+            nameFa:      "پشت بازو اورهد سیمکش ایستاده",
+            nameEn:      "Overhead Cable Tricep Extension",
+            sets:        3,
+            reps:        "6-12",
+            system:      "خطی",
+            rest:        105,
+            videoSearch: "overhead cable tricep extension standing",
           },
           {
-            nameFa: "فلای معکوس دستگاه گیرش خنثی",
-            nameEn: "Reverse Pec Deck Fly Neutral Grip",
-            sets: 4, reps: "10-12", system: "خطی", rest: 120,
-            videoSearch: "reverse pec deck fly neutral grip rear delt machine"
+            nameFa:      "پلانک",
+            nameEn:      "Plank",
+            sets:        3,
+            reps:        "60-90s",
+            system:      "خطی",
+            rest:        105,
+            videoSearch: "plank exercise core",
           },
           {
-            nameFa: "جک نایف لبه نیمکت",
-            nameEn: "Jackknife Bench Edge",
-            sets: 3, reps: "15", system: "خطی", rest: 120,
-            videoSearch: "jackknife crunch bench edge abs"
+            nameFa:      "ددباگ",
+            nameEn:      "Dead Bug",
+            sets:        3,
+            reps:        "16-20",
+            system:      "خطی",
+            rest:        105,
+            videoSearch: "dead bug core exercise",
           },
-          {
-            nameFa: "کرانچ استار فیش",
-            nameEn: "Starfish Crunch",
-            sets: 3, reps: "20", system: "خطی", rest: 120,
-            videoSearch: "starfish crunch ab exercise"
-          }
-        ]
-      }
+        ],
+      },
     ],
 
     corrective: [
-      {
-        nameFa: "پروترکشن/ریترکشن کتف",
-        nameEn: "Scapular Protraction / Retraction",
-        sets: 3, reps: "15", system: "خطی", rest: 60,
-        videoSearch: "scapular protraction retraction corrective exercise"
-      },
-      {
-        nameFa: "پل باسن",
-        nameEn: "Glute Bridge",
-        sets: 3, reps: "12", system: "خطی", rest: 60,
-        note: "۵ ثانیه منقبض",
-        videoSearch: "glute bridge hip thrust bodyweight hold"
-      },
-      {
-        nameFa: "کشش پریفورمیس",
-        nameEn: "Piriformis Stretch",
-        sets: 3, reps: "15s", system: "خطی", rest: 60,
-        videoSearch: "piriformis stretch seated figure four"
-      }
+      { nameFa: "کشش گهواره",     nameEn: "Cradle Stretch",     sets: 5, reps: "8s", videoSearch: "cradle stretch hip" },
+      { nameFa: "کشش گربه",       nameEn: "Cat-Cow Stretch",    sets: 5, reps: "8s", videoSearch: "cat cow stretch" },
+      { nameFa: "کشش سوئز",       nameEn: "Suez Stretch",       sets: 5, reps: "8s", videoSearch: "suez stretch exercise" },
+      { nameFa: "کشش پریفورمیس",  nameEn: "Piriformis Stretch", sets: 5, reps: "8s", videoSearch: "piriformis stretch" },
     ],
-
     cardio: [
-      {
-        nameFa: "دوچرخه یا الپتیکال",
-        nameEn: "Bike or Elliptical",
-        sets: 1, reps: "10 دقیقه", system: "", rest: 0,
-        videoSearch: "stationary bike elliptical cardio technique"
-      },
-      {
-        nameFa: "تردمیل",
-        nameEn: "Treadmill",
-        sets: 1, reps: "10 دقیقه", system: "", rest: 0,
-        videoSearch: "treadmill moderate pace cardio"
-      }
-    ]
+      { nameFa: "دوچرخه / تردمیل", nameEn: "Bike / Treadmill", duration: "۱۵–۲۰ دقیقه" },
+    ],
   },
 
-  // ── SHIVA ─────────────────────────────────────────────────────────
+
+  // ─────────────────────────────────────────────────────────────────
+  //  SHIVA
+  // ─────────────────────────────────────────────────────────────────
   shiva: {
-    name: "شیوا",
-    nameEn: "Shiva",
-    avatar: "ش",
-    avatarColor: "linear-gradient(135deg, #8040e0, #c060ff)",
-    info: "۳۵ ساله · ۶۸ کیلوگرم",
+    name:        "شیوا",
+    nameEn:      "Shiva",
+    avatar:      "🌸",
+    avatarColor: "#e91e8c",
+    info:        "۳ روز در هفته",
 
     days: [
+      // ── DAY 1: پا و باسن ────────────────────────────────────────
       {
-        titleFa: "روز اول — پا و سرشانه",
-        titleEn: "Day 1 — Legs & Shoulders",
+        titleFa: "روز اول — پا و باسن",
+        titleEn: "Day 1 — Legs & Glutes",
         exercises: [
           {
-            nameFa: "پرس پا دستگاه نشسته",
-            nameEn: "Seated Leg Press Machine",
-            sets: 4, reps: "12-15", system: "خطی", rest: 120,
-            videoSearch: "seated leg press machine technique"
+            nameFa:      "جلو ران ماشین + سومو گابلت اسکوات دمبل",
+            nameEn:      "Leg Extension + Sumo Goblet Squat (Superset)",
+            sets:        3,
+            reps:        "8-12",
+            system:      "سوپرست",
+            rest:        90,
+            superset:    true,
+            note:        "سوپرست: جلو ران ماشین ۱۲-۱۰-۸ + سومو گابلت اسکوات ۳×(۸-۱۰)",
+            videoSearch: "leg extension superset sumo goblet squat",
           },
           {
-            nameFa: "کیک بک سیمکش پا صاف",
-            nameEn: "Cable Kickback Straight Leg",
-            sets: 3, reps: "12-15", system: "خطی", rest: 120,
-            videoSearch: "cable kickback straight leg glute"
+            nameFa:      "هیپ ابداکشن سیمکش ایستاده",
+            nameEn:      "Standing Cable Hip Abduction",
+            sets:        3,
+            reps:        "8-12",
+            system:      "خطی",
+            rest:        75,
+            note:        "هر پا جداگانه",
+            videoSearch: "standing cable hip abduction",
           },
           {
-            nameFa: "جلو ران دستگاه",
-            nameEn: "Leg Extension Machine",
-            sets: 3, reps: "12-15", system: "خطی", rest: 120,
-            videoSearch: "leg extension machine quad technique"
+            nameFa:      "پرس پا دستگاه",
+            nameEn:      "Leg Press Machine",
+            sets:        3,
+            reps:        "10-12-15",
+            system:      "هرمی",
+            rest:        75,
+            videoSearch: "leg press machine exercise",
           },
           {
-            nameFa: "پشت ران دستگاه نشسته",
-            nameEn: "Seated Leg Curl Machine",
-            sets: 3, reps: "8-12", system: "خطی", rest: 120,
-            videoSearch: "seated leg curl machine hamstring"
+            nameFa:      "پشت ران دستگاه نشسته",
+            nameEn:      "Seated Leg Curl Machine",
+            sets:        3,
+            reps:        "8-10-12",
+            system:      "پارشال رپس",
+            rest:        75,
+            note:        "در انتهای هر ست ۶ تکرار نیمه بزنید",
+            videoSearch: "seated leg curl machine partial reps",
           },
           {
-            nameFa: "استپ آپ دمبل تمرکز بر باسن + هیپ تراست هالتر",
-            nameEn: "Dumbbell Step-Up (Glute Focus) + Barbell Hip Thrust",
-            sets: 3, reps: "12-15 + 12-15", system: "سوپرست", rest: 120,
-            superset: true,
-            videoSearch: "dumbbell step up glute focus barbell hip thrust"
+            nameFa:      "ددلیفت رومانیایی دمبل تک پا (مبتدی)",
+            nameEn:      "Single Leg Romanian Deadlift Dumbbell",
+            sets:        3,
+            reps:        "10-12-15",
+            system:      "هرمی",
+            rest:        75,
+            videoSearch: "single leg romanian deadlift dumbbell beginner",
           },
           {
-            nameFa: "پرس سرشانه دستگاه گیرش خنثی",
-            nameEn: "Shoulder Press Machine (Neutral Grip)",
-            sets: 3, reps: "15-20", system: "خطی", rest: 120,
-            videoSearch: "shoulder press machine neutral grip"
+            nameFa:      "کیک بک سیمکش میز شیب",
+            nameEn:      "Cable Kickback on Incline Bench",
+            sets:        3,
+            reps:        "10-12",
+            system:      "خطی",
+            rest:        75,
+            videoSearch: "cable kickback incline bench glute",
           },
           {
-            nameFa: "فلای معکوس دستگاه گیرش خنثی",
-            nameEn: "Reverse Pec Deck Fly (Neutral Grip)",
-            sets: 3, reps: "10-12", system: "خطی", rest: 120,
-            videoSearch: "reverse pec deck fly neutral grip rear delt"
+            nameFa:      "کرانچ نیمه ۹۰ درجه",
+            nameEn:      "90-Degree Crunch",
+            sets:        3,
+            reps:        "20",
+            system:      "خطی",
+            rest:        75,
+            videoSearch: "90 degree crunch ab exercise",
           },
-          {
-            nameFa: "راشن توییست",
-            nameEn: "Russian Twist",
-            sets: 3, reps: "15-20", system: "خطی", rest: 90,
-            videoSearch: "Russian twist abs core exercise technique"
-          }
-        ]
+        ],
       },
 
+      // ── DAY 2: سرشانه و کمر ─────────────────────────────────────
       {
-        titleFa: "روز دوم — زیربغل و بازو",
-        titleEn: "Day 2 — Back & Arms",
+        titleFa: "روز دوم — سرشانه و کمر",
+        titleEn: "Day 2 — Shoulders & Back",
         exercises: [
           {
-            nameFa: "لت پول داون سیمکش پروانه تک دست",
-            nameEn: "Single-Arm Cable Lat Pulldown (Butterfly Grip)",
-            sets: 3, reps: "12-15", system: "خطی", rest: 120,
-            videoSearch: "single arm lat pulldown cable butterfly"
+            nameFa:      "پرس سرشانه دمبل نشسته (دراپ ست)",
+            nameEn:      "Seated Dumbbell Shoulder Press (Drop Set)",
+            sets:        4,
+            reps:        "6-8-10-12",
+            system:      "دراپ ست",
+            rest:        75,
+            note:        "ست آخر دراپ ست",
+            videoSearch: "seated dumbbell shoulder press drop set",
           },
           {
-            nameFa: "پرس بالا سینه دمبل",
-            nameEn: "Incline Dumbbell Bench Press",
-            sets: 3, reps: "10-12-15", system: "هرمی", rest: 120,
-            videoSearch: "incline dumbbell bench press technique"
+            nameFa:      "آپرایت سیمکش ایستاده",
+            nameEn:      "Standing Cable Upright Row",
+            sets:        3,
+            reps:        "8-12",
+            system:      "خطی",
+            rest:        75,
+            videoSearch: "cable upright row standing",
           },
           {
-            nameFa: "زیربغل رویینگ دستگاه دست جمع سوپینیشن",
-            nameEn: "Seated Cable Row Close Grip Supination",
-            sets: 3, reps: "10-12", system: "خطی", rest: 120,
-            videoSearch: "seated cable row close grip supination back"
+            nameFa:      "زیربغل H-بار دستگاه (گیرش پرونیشن)",
+            nameEn:      "T-Bar Row Machine (Pronation Grip)",
+            sets:        3,
+            reps:        "10-12-15",
+            system:      "هرمی",
+            rest:        75,
+            note:        "گیرش پرونیشن",
+            videoSearch: "T bar row machine pronation grip",
           },
           {
-            nameFa: "فلای سینه دستگاه",
-            nameEn: "Pec Deck Fly Machine",
-            sets: 3, reps: "12-15", system: "خطی", rest: 120,
-            videoSearch: "pec deck fly machine chest technique"
+            nameFa:      "نشر خم دمبل با حمایت سینه (گیرش خنثی)",
+            nameEn:      "Chest-Supported Dumbbell Rear Delt Fly (Neutral Grip)",
+            sets:        3,
+            reps:        "6-12",
+            system:      "خطی",
+            rest:        75,
+            note:        "گیرش خنثی",
+            videoSearch: "chest supported rear delt fly neutral grip",
           },
           {
-            nameFa: "زیر بغل دمبل با حمایت سینه پرونیشن",
-            nameEn: "Chest-Supported Dumbbell Row (Pronation)",
-            sets: 3, reps: "10-12", system: "خطی", rest: 120,
-            videoSearch: "chest supported dumbbell row pronation back"
+            nameFa:      "فلای بالا سینه دمبل",
+            nameEn:      "Incline Dumbbell Fly (Upper Chest)",
+            sets:        3,
+            reps:        "8-12",
+            system:      "خطی",
+            rest:        75,
+            videoSearch: "incline dumbbell fly upper chest",
           },
           {
-            nameFa: "نشر جانب دمبل نشسته",
-            nameEn: "Seated Dumbbell Lateral Raise",
-            sets: 3, reps: "12", system: "خطی", rest: 120,
-            videoSearch: "seated dumbbell lateral raise shoulder"
+            nameFa:      "زیربغل رویینگ دستگاه تک دست (گیرش خنثی)",
+            nameEn:      "Single Arm Machine Row (Neutral Grip)",
+            sets:        3,
+            reps:        "8-10-12",
+            system:      "پارشال رپس",
+            rest:        75,
+            note:        "در انتهای هر ست ۶ تکرار نیمه بزن",
+            videoSearch: "single arm machine row neutral grip partial reps",
           },
           {
-            nameFa: "جلو بازو دمبل نشسته + پشت بازو اورهد سیمکش نشسته",
-            nameEn: "Seated Dumbbell Bicep Curl + Seated Overhead Cable Tricep Extension",
-            sets: 3, reps: "12-15 + 12-15", system: "سوپرست", rest: 120,
-            superset: true,
-            videoSearch: "seated dumbbell bicep curl overhead cable tricep superset"
+            nameFa:      "فیس پول سیمکش ایستاده",
+            nameEn:      "Standing Cable Face Pull",
+            sets:        3,
+            reps:        "10-12-15",
+            system:      "هرمی",
+            rest:        75,
+            videoSearch: "cable face pull standing",
           },
           {
-            nameFa: "پشت بازو دیپ دستگاه",
-            nameEn: "Tricep Dip Machine",
-            sets: 3, reps: "10-12", system: "خطی", rest: 120,
-            videoSearch: "tricep dip machine technique"
+            nameFa:      "فلای سینه سیمکش نشسته",
+            nameEn:      "Seated Cable Chest Fly",
+            sets:        3,
+            reps:        "8-12",
+            system:      "خطی",
+            rest:        75,
+            videoSearch: "seated cable chest fly",
           },
-          {
-            nameFa: "کراس کرانچ + پلانک",
-            nameEn: "Cross Crunch + Plank",
-            sets: 3, reps: "10-12 + max", system: "سوپرست", rest: 120,
-            superset: true,
-            videoSearch: "cross crunch oblique superset plank abs"
-          }
-        ]
+        ],
       },
 
+      // ── DAY 3: باسن و بازو ──────────────────────────────────────
       {
-        titleFa: "روز سوم — باسن و پا",
-        titleEn: "Day 3 — Glutes & Legs",
+        titleFa: "روز سوم — باسن و بازو",
+        titleEn: "Day 3 — Glutes & Arms",
         exercises: [
           {
-            nameFa: "هیپ تراست تک پا",
-            nameEn: "Single-Leg Hip Thrust",
-            sets: 4, reps: "8-10", system: "خطی", rest: 120,
-            videoSearch: "single leg hip thrust glute technique"
+            nameFa:      "هیپ تراست هالتر (زانوها ۱۲۰ درجه)",
+            nameEn:      "Barbell Hip Thrust (120 Degree Knee Angle)",
+            sets:        4,
+            reps:        "8-8-10-12",
+            system:      "هرمی",
+            rest:        75,
+            note:        "زانوها ۱۲۰ درجه باشه",
+            videoSearch: "barbell hip thrust 120 degree knee glute",
           },
           {
-            nameFa: "پشت ران دستگاه خوابیده",
-            nameEn: "Lying Leg Curl Machine",
-            sets: 3, reps: "10-12-15", system: "هرمی", rest: 120,
-            videoSearch: "lying leg curl machine hamstring technique"
+            nameFa:      "استپ آپ دمبل (تمرکز بر باسن)",
+            nameEn:      "Dumbbell Step Up (Glute Focus)",
+            sets:        3,
+            reps:        "8-10",
+            system:      "خطی",
+            rest:        75,
+            note:        "هر پا جداگانه",
+            videoSearch: "dumbbell step up glute focus",
           },
           {
-            nameFa: "لانجز دمبل تمرکز بر چهارسر",
-            nameEn: "Dumbbell Lunges (Quad Focus)",
-            sets: 3, reps: "12", system: "خطی", rest: 120,
-            videoSearch: "dumbbell lunges quad focused technique"
+            nameFa:      "هیپ ابداکشن سیمکش ایستاده",
+            nameEn:      "Standing Cable Hip Abduction",
+            sets:        3,
+            reps:        "8-10",
+            system:      "پارشال رپس",
+            rest:        75,
+            note:        "در انتهای هر ست ۵ تکرار نیمه بزنید — هر پا",
+            videoSearch: "standing cable hip abduction partial reps",
           },
           {
-            nameFa: "هیپ ابداکشن سیمکش ایستاده",
-            nameEn: "Standing Cable Hip Abduction",
-            sets: 3, reps: "12", system: "خطی", rest: 120,
-            videoSearch: "standing cable hip abduction glute"
+            nameFa:      "جلو بازو سیمکش ایستاده (دست عقب‌تر از بدن)",
+            nameEn:      "Standing Cable Bicep Curl (Hand Behind Body)",
+            sets:        3,
+            reps:        "12-15",
+            system:      "خطی",
+            rest:        75,
+            note:        "دست عقب‌تر از بدن",
+            videoSearch: "cable bicep curl hand behind body",
           },
           {
-            nameFa: "اسکوات سیمکش",
-            nameEn: "Cable Squat",
-            sets: 3, reps: "10-12", system: "خطی", rest: 120,
-            videoSearch: "cable squat technique legs"
+            nameFa:      "جلو بازو دمبل نشسته + پشت بازو دمبل اورهد نشسته (سوپرست)",
+            nameEn:      "Seated Dumbbell Bicep Curl + Seated Overhead Tricep (Superset)",
+            sets:        3,
+            reps:        "8-10",
+            system:      "سوپرست",
+            rest:        75,
+            superset:    true,
+            note:        "سوپرست: جلو بازو دمبل نشسته ۳×(۸-۱۰) + پشت بازو دمبل اورهد نشسته ۳×(۸-۱۰)",
+            videoSearch: "seated dumbbell bicep curl overhead tricep superset",
           },
           {
-            nameFa: "ددلیفت رومانیایی دمبل تک پا",
-            nameEn: "Single-Leg Romanian Deadlift Dumbbell",
-            sets: 3, reps: "15", system: "خطی", rest: 120,
-            note: "حرفه ای",
-            videoSearch: "single leg romanian deadlift dumbbell technique"
+            nameFa:      "پشت بازو سیمکش ایستاده",
+            nameEn:      "Standing Cable Tricep Pushdown",
+            sets:        3,
+            reps:        "12-15",
+            system:      "خطی",
+            rest:        75,
+            videoSearch: "cable tricep pushdown standing",
           },
           {
-            nameFa: "فیله میز فیله",
-            nameEn: "Back Extension / Hyperextension",
-            sets: 3, reps: "10", system: "خطی", rest: 120,
-            videoSearch: "back extension hyperextension machine lower back"
+            nameFa:      "اسپایدر پلانک",
+            nameEn:      "Spider Plank",
+            sets:        3,
+            reps:        "10-20",
+            system:      "خطی",
+            rest:        75,
+            note:        "عضلات شکم در طول حرکت منقبض باشه و راستای ستون فقرات حفظ بشه",
+            videoSearch: "spider plank core exercise",
           },
           {
-            nameFa: "کرانچ سیمکش نشسته",
-            nameEn: "Seated Cable Crunch",
-            sets: 3, reps: "12-15", system: "خطی", rest: 120,
-            videoSearch: "seated cable crunch abs technique"
-          }
-        ]
-      }
+            nameFa:      "پلانک",
+            nameEn:      "Plank",
+            sets:        3,
+            reps:        "30-60s",
+            system:      "خطی",
+            rest:        75,
+            videoSearch: "plank exercise core",
+          },
+        ],
+      },
     ],
 
     corrective: [
-      {
-        nameFa: "چرخش خارجی بازو",
-        nameEn: "External Arm Rotation",
-        sets: 3, reps: "15", system: "خطی", rest: 60,
-        videoSearch: "external arm rotation shoulder corrective exercise"
-      },
-      {
-        nameFa: "فیس پول با حفظ چین تاک",
-        nameEn: "Face Pull with Chin Tuck",
-        sets: 3, reps: "12", system: "خطی", rest: 60,
-        videoSearch: "face pull chin tuck corrective posture"
-      },
-      {
-        nameFa: "کشش سینه سه گوش دیوار",
-        nameEn: "Wall Pectoral Stretch (Three-Point)",
-        sets: 3, reps: "20s", system: "خطی", rest: 60,
-        videoSearch: "wall chest stretch pectoral three points"
-      },
-      {
-        nameFa: "جمع کردن اشیا با کف پا",
-        nameEn: "Toe Curl / Marble Pickup",
-        sets: 3, reps: "20", system: "خطی", rest: 60,
-        videoSearch: "toe curl marble pickup foot intrinsic exercise"
-      }
+      { nameFa: "کشش پریفورمیس", nameEn: "Piriformis Stretch", sets: 5, reps: "8s", videoSearch: "piriformis stretch" },
+      { nameFa: "کشش گهواره",    nameEn: "Cradle Stretch",     sets: 5, reps: "8s", videoSearch: "cradle stretch hip" },
+      { nameFa: "کشش گربه",      nameEn: "Cat-Cow Stretch",    sets: 5, reps: "8s", videoSearch: "cat cow stretch" },
     ],
-
     cardio: [
-      {
-        nameFa: "دوچرخه یا الپتیکال",
-        nameEn: "Bike or Elliptical",
-        sets: 1, reps: "6 دقیقه", system: "", rest: 0,
-        videoSearch: "stationary bike elliptical cardio technique"
-      },
-      {
-        nameFa: "تردمیل",
-        nameEn: "Treadmill",
-        sets: 1, reps: "10 دقیقه", system: "", rest: 0,
-        videoSearch: "treadmill moderate pace cardio"
-      }
-    ]
-  }
+      { nameFa: "دوچرخه / تردمیل", nameEn: "Bike / Treadmill", duration: "۱۵–۲۰ دقیقه" },
+    ],
+  },
 
 };
